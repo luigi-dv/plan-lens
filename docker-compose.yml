@@ -1,0 +1,27 @@
+services:
+  db:
+    image: postgis/postgis:17-3.5
+    # The official image has no linux/arm64 build; this runs under emulation on Apple Silicon.
+    platform: linux/amd64
+    container_name: planlens-db
+    environment:
+      POSTGRES_USER: planlens
+      POSTGRES_PASSWORD: planlens
+      POSTGRES_DB: planlens
+    ports:
+      # 5433 on the host so it never clashes with a local Postgres on 5432
+      - "5433:5432"
+    volumes:
+      - planlens-pgdata:/var/lib/postgresql/data
+      # Runs once, on first start of an empty volume
+      - ./db/init.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+    healthcheck:
+      # -h 127.0.0.1: the temporary init-time server only listens on the unix socket,
+      # so a TCP check only passes once the real server is up.
+      test: ["CMD-SHELL", "pg_isready -h 127.0.0.1 -U planlens -d planlens"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+volumes:
+  planlens-pgdata:
