@@ -1,0 +1,42 @@
+{
+  "name": "planlens",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "typecheck": "next typegen && tsc --noEmit",
+    "test": "vitest run",
+    "test:unit": "vitest run --exclude '**/*.integration.test.ts' --exclude node_modules",
+    "test:integration": "vitest run integration",
+    "db:up": "docker compose up -d --wait",
+    "db:down": "docker compose down",
+    "data:fetch": "tsx scripts/fetch-data.ts",
+    "db:migrate": "tsx --env-file-if-exists=.env scripts/migrate.ts",
+    "db:import": "tsx --env-file-if-exists=.env scripts/import.ts",
+    "db:explain": "tsx --env-file-if-exists=.env scripts/explain.ts"
+  },
+  "dependencies": {
+    "leaflet": "^1.9.4",
+    "next": "16.4.2",
+    "pg": "^8.23.1",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "react-leaflet": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/geojson": "^7946.0.16",
+    "@types/leaflet": "^1.9.22",
+    "@types/node": "^22.20.5",
+    "@types/pg": "^8.23.1",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.4.2",
+    "tsx": "^4.23.15",
+    "typescript": "^5",
+    "vitest": "^5.0.5"
+  }
+}
