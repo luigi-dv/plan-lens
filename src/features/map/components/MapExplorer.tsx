@@ -9,6 +9,7 @@ import { DEFAULT_RADIUS_M } from "../types/map";
 import { LayerToggle } from "./LayerToggle";
 import styles from "./MapExplorer.module.css";
 import { MapClient } from "./MapClient";
+import { MapErrorBoundary } from "./MapErrorBoundary";
 import { RadiusSlider } from "./RadiusSlider";
 
 /** The main screen: map on the left, controls and results on the right. */
@@ -22,12 +23,14 @@ export function MapExplorer() {
   return (
     <div className={styles.layout}>
       <div className={styles.map}>
-        <MapClient
-          selected={selected}
-          radiusM={radiusM}
-          datasetIds={datasetIds}
-          onSelect={setSelected}
-        />
+        <MapErrorBoundary>
+          <MapClient
+            selected={selected}
+            radiusM={radiusM}
+            datasetIds={datasetIds}
+            onSelect={setSelected}
+          />
+        </MapErrorBoundary>
       </div>
       <aside className={styles.side}>
         <div className={styles.controls}>

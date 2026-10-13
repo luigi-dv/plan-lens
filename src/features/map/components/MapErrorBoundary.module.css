@@ -1,0 +1,33 @@
+.fallback {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 24px;
+  background: #e8ecf1;
+  text-align: center;
+}
+
+.title {
+  margin: 0;
+  font-weight: 600;
+}
+
+.message {
+  margin: 0;
+  max-width: 48ch;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.fallback button {
+  padding: 6px 12px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface);
+  font: inherit;
+  cursor: pointer;
+}
