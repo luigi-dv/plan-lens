@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    services:
+      postgis:
+        image: postgis/postgis:17-3.5
+        env:
+          POSTGRES_USER: planlens
+          POSTGRES_PASSWORD: planlens
+          POSTGRES_DB: planlens
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -h 127.0.0.1 -U planlens -d planlens"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
+    env:
+      DATABASE_URL: postgresql://planlens:planlens@localhost:5432/planlens
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - name: Enable PostGIS
+        run: psql "$DATABASE_URL" -f db/init.sql
+      - name: Unit and integration tests
+        run: npm test
+      - run: npm run build
