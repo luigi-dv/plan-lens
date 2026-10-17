@@ -1,5 +1,7 @@
 -- Idempotent: safe to run repeatedly (npm run db:migrate, also called by db:import).
--- Neon / Supabase: run `CREATE EXTENSION IF NOT EXISTS postgis;` once first (see db/init.sql).
+
+-- A no-op once installed. Creating it needs the database owner (or a superuser) the first time.
+CREATE EXTENSION IF NOT EXISTS postgis;
 
 CREATE TABLE IF NOT EXISTS constraints (
   id         serial PRIMARY KEY,

@@ -76,7 +76,7 @@ src/
     crs/          components/ server/ types/               /crs page and its ST_Transform query
   shared/         lib/ hooks/ components/ types/ testing/  db pool, http wrapper, param parsing
 scripts/          fetch-data.ts, import.ts, migrate.ts, explain.ts, lib/sources.ts
-db/               init.sql (PostGIS extension), schema.sql
+db/               init.sql (Docker init), schema.sql (PostGIS extension, tables, indexes)
 data/             raw GeoJSON (EPSG:2180)
 ```
 
@@ -231,8 +231,8 @@ All comfortably inside the 300 ms target. The results panel also shows the measu
 
 ## Deploy
 
-1. Create a Neon (or Supabase) Postgres database and enable PostGIS: run `db/init.sql` (`CREATE EXTENSION IF NOT EXISTS postgis;`).
-2. Locally, with `DATABASE_URL` pointing at it (keep `sslmode=require`), run `npm run db:import` to create the schema and load the data.
+1. Create a Neon (or Supabase) Postgres database.
+2. Locally, with `DATABASE_URL` pointing at it as the database owner (Postgres 15+ only lets the owner create tables in `public`) and `sslmode=verify-full`, run `npm run db:import`. It enables PostGIS, creates the schema and loads the data.
 3. Deploy the repo to Vercel and set `DATABASE_URL` in the project's environment variables (use the pooled connection string).
 4. Fill in the live link and screenshot at the top of this file.
 
