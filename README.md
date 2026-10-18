@@ -2,8 +2,16 @@
 
 Click anywhere on a map of Warsaw and see which heritage and nature-protection constraints cover that point (historic monuments, nature reserves, Natura 2000 sites and more), or sit within a chosen radius. A small portfolio demo of **GeoJSON**, **PostGIS spatial queries** and **coordinate systems** (EPSG:4326 vs 3857 vs 2180).
 
-- **Live demo:** _TODO: add the Vercel URL after deploying (see [Deploy](#deploy))_
-- **Screenshot / GIF:** _TODO: capture once deployed_
+**Live demo: [plan-lens-eosin.vercel.app](https://plan-lens-eosin.vercel.app)** · [Coordinate systems page](https://plan-lens-eosin.vercel.app/crs)
+
+![Clicking the Vistula by the Old Town, widening the search radius, clicking Wilanów, turning on protected landscape areas, then opening the coordinate systems page](docs/demo.gif)
+
+<details>
+<summary>Full-size screenshot</summary>
+
+![Map of Warsaw with heritage and nature-protection layers; a point in Wilanów is selected and the side panel lists the three constraints covering it with their areas](docs/screenshot.png)
+
+</details>
 
 **Stack:** Next.js (App Router) · TypeScript · react-leaflet + OpenStreetMap tiles · Postgres + PostGIS · `pg` with hand-written SQL (no ORM, so the spatial SQL stays visible) · Vitest.
 
@@ -234,7 +242,6 @@ All comfortably inside the 300 ms target. The results panel also shows the measu
 1. Create a Neon (or Supabase) Postgres database.
 2. Locally, with `DATABASE_URL` pointing at it as the database owner (Postgres 15+ only lets the owner create tables in `public`) and `sslmode=verify-full`, run `npm run db:import`. It enables PostGIS, creates the schema and loads the data.
 3. Deploy the repo to Vercel and set `DATABASE_URL` in the project's environment variables (use the pooled connection string).
-4. Fill in the live link and screenshot at the top of this file.
 
 ## What I learned
 
